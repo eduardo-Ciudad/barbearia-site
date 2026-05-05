@@ -179,16 +179,28 @@ ul { list-style: none; }
 
 /* Gold button */
 .btn--gold {
-  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+  background: linear-gradient(135deg, #c9a96e 0%, #a88748 100%);
   color: #0b0b0b;
-  border-radius: var(--radius);
-  border: 1px solid transparent;
+  border-radius: 6px;
+  border: 1px solid rgba(255,255,255,0.06);
+
+  position: relative;
+  overflow: hidden;
+
+  transition:
+    transform 0.25s cubic-bezier(0.16,1,0.3,1),
+    box-shadow 0.25s ease,
+    background 0.25s ease;
 }
 
 .btn--gold:hover {
-  background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 100%);
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px var(--gold-glow);
+
+  background: linear-gradient(135deg, #e0c08a 0%, #c9a96e 100%);
+
+  box-shadow:
+    0 6px 20px rgba(0,0,0,0.35),
+    0 2px 6px rgba(201,169,110,0.18);
 }
 
 /* Gold glow variant */
@@ -223,6 +235,26 @@ ul { list-style: none; }
 .btn--sm  { padding: 10px 20px;  font-size: 0.75rem; }
 .btn--lg  { padding: 15px 32px;  font-size: 0.8125rem; }
 .btn--xl  { padding: 19px 52px;  font-size: 0.9375rem; }
+
+.btn--cta {
+  border-radius: 999px; /* pill shape */
+  padding: 16px 36px;
+
+  border: 1px solid rgba(201,169,110,0.25);
+  background: rgba(255,255,255,0.02);
+
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  letter-spacing: 0.12em;
+  font-weight: 600;
+
+  transition:
+    transform 0.25s cubic-bezier(0.16,1,0.3,1),
+    background 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
 
 /* ============================================================
    REVEAL ANIMATION
@@ -297,7 +329,7 @@ ul { list-style: none; }
   min-height: 100dvh;
   display: flex;
   align-items: center;
-  padding-block-start: 88px;
+padding-block-start: 40px;
   overflow: hidden;
 }
 
@@ -488,7 +520,7 @@ body.is-loaded .hero__visual   { opacity: 1; transform: none; transition-delay: 
 
 .hero__img {
   animation: ken-burns 16s ease-in-out infinite alternate;
-  transform-origin: center;
+  object-position: right center;
 }
 
 @keyframes ken-burns {
@@ -499,11 +531,34 @@ body.is-loaded .hero__visual   { opacity: 1; transform: none; transition-delay: 
 .hero__img-overlay {
   position: absolute;
   inset: 0;
-  background:
-    linear-gradient(to bottom, rgba(11,11,11,0.15) 0%, transparent 40%, rgba(11,11,11,0.75) 100%),
-    linear-gradient(to right, rgba(11,11,11,0.3) 0%, transparent 60%);
+  z-index: 1;
   pointer-events: none;
+
+  background:
+    /* escurece embaixo */
+    linear-gradient(to bottom,
+      rgba(11,11,11,0.1) 0%,
+      rgba(11,11,11,0.4) 50%,
+      rgba(11,11,11,0.9) 100%
+    ),
+
+    /* 🔥 GRADIENTE PRINCIPAL (ESQUERDA → DIREITA) */
+    linear-gradient(to right,
+      #0b0b0b 0%,
+      rgba(11,11,11,0.95) 20%,
+      rgba(11,11,11,0.85) 35%,
+      rgba(11,11,11,0.6) 50%,
+      rgba(11,11,11,0.2) 70%,
+      transparent 100%
+    );
 }
+
+.hero__content {
+  position: relative;
+  z-index: 2;
+}
+
+
 
 .hero__badge {
   position: absolute;
